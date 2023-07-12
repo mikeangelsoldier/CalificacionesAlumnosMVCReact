@@ -25,10 +25,10 @@ namespace CalificacionesAlumnosMVCReact.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EstudianteCurso>>> GetEstudianteCurso()
         {
-          if (_context.EstudianteCurso == null)
-          {
-              return NotFound();
-          }
+            if (_context.EstudianteCurso == null)
+            {
+                return NotFound();
+            }
             return await _context.EstudianteCurso.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace CalificacionesAlumnosMVCReact.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<EstudianteCurso>> GetEstudianteCurso(int id)
         {
-          if (_context.EstudianteCurso == null)
-          {
-              return NotFound();
-          }
+            if (_context.EstudianteCurso == null)
+            {
+                return NotFound();
+            }
             var estudianteCurso = await _context.EstudianteCurso.FindAsync(id);
 
             if (estudianteCurso == null)
@@ -86,10 +86,10 @@ namespace CalificacionesAlumnosMVCReact.Controllers
         [HttpPost]
         public async Task<ActionResult<EstudianteCurso>> PostEstudianteCurso(EstudianteCurso estudianteCurso)
         {
-          if (_context.EstudianteCurso == null)
-          {
-              return Problem("Entity set 'CalificacionesAlumnosContext.EstudianteCurso'  is null.");
-          }
+            if (_context.EstudianteCurso == null)
+            {
+                return Problem("Entity set 'CalificacionesAlumnosContext.EstudianteCurso'  is null.");
+            }
             _context.EstudianteCurso.Add(estudianteCurso);
             await _context.SaveChangesAsync();
 
@@ -120,5 +120,56 @@ namespace CalificacionesAlumnosMVCReact.Controllers
         {
             return (_context.EstudianteCurso?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
+
+
+
+
+
+        [HttpPost]
+        [Route("Guardar")]
+        public async Task<IActionResult> Guardar([FromBody] EstudianteCurso request)
+        {
+            await _context.EstudianteCurso.AddAsync(request);
+            await _context.SaveChangesAsync();
+
+            return StatusCode(StatusCodes.Status200OK, "ok");
+        }
+
+
+
+        [HttpPut]
+        [Route("Editar")]
+        public async Task<IActionResult> Editar(int id)
+        {
+
+            return StatusCode(StatusCodes.Status200OK, id);
+            _context.EstudianteCurso.Update(null);
+            await _context.SaveChangesAsync();
+
+            return StatusCode(StatusCodes.Status200OK, "ok");
+        }
+
+
+
+        [HttpDelete]
+        [Route("Eliminar/{id:int}")]
+        public async Task<IActionResult> Eliminar(int id)
+        {
+            EstudianteCurso estudianteCurso = _context.EstudianteCurso.Find(id);
+
+            _context.EstudianteCurso.Remove(estudianteCurso);
+            await _context.SaveChangesAsync();
+
+            return StatusCode(StatusCodes.Status200OK, "ok");
+        }
+
+
+
+
+
+
+
     }
 }

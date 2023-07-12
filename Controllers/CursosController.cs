@@ -25,10 +25,10 @@ namespace CalificacionesAlumnosMVCReact.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Curso>>> GetCurso()
         {
-          if (_context.Curso == null)
-          {
-              return NotFound();
-          }
+            if (_context.Curso == null)
+            {
+                return NotFound();
+            }
             return await _context.Curso.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace CalificacionesAlumnosMVCReact.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Curso>> GetCurso(int id)
         {
-          if (_context.Curso == null)
-          {
-              return NotFound();
-          }
+            if (_context.Curso == null)
+            {
+                return NotFound();
+            }
             var curso = await _context.Curso.FindAsync(id);
 
             if (curso == null)
@@ -86,10 +86,10 @@ namespace CalificacionesAlumnosMVCReact.Controllers
         [HttpPost]
         public async Task<ActionResult<Curso>> PostCurso(Curso curso)
         {
-          if (_context.Curso == null)
-          {
-              return Problem("Entity set 'CalificacionesAlumnosContext.Curso'  is null.");
-          }
+            if (_context.Curso == null)
+            {
+                return Problem("Entity set 'CalificacionesAlumnosContext.Curso'  is null.");
+            }
             _context.Curso.Add(curso);
             await _context.SaveChangesAsync();
 
@@ -120,5 +120,34 @@ namespace CalificacionesAlumnosMVCReact.Controllers
         {
             return (_context.Curso?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
+
+        [HttpGet]
+        [Route("CursosDisponibles/{estudianteId}")]
+        public async Task<IActionResult> cursosDisponibles(int estudianteId)
+        {
+
+
+            List<Curso> lista = await _context.Curso
+
+            .OrderByDescending(c => c.Id)
+            .ToListAsync();
+
+
+            /*
+            List<EstudianteCurso> lista = await _context.EstudianteCurso
+            .Include(ec => ec.Curso)
+            .Include(ec => ec.Estudiante)
+            .Where(ec => ec.EstudianteId == estudianteId)
+            .OrderByDescending(c => c.Id).ToListAsync();
+
+
+            */
+
+            return StatusCode(StatusCodes.Status200OK, lista);
+        }
+
+
     }
 }

@@ -16,7 +16,7 @@ namespace CalificacionesAlumnosMVCReact.Models
         public int? Creditos { get; set; }
 
         // Relaciones
-        public ICollection<EstudianteCurso> EstudiantesCursos { get; }
+        public ICollection<EstudianteCurso>? EstudiantesCursos { get; } = new List<EstudianteCurso>();
 
     }
 }
