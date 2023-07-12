@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using CalificacionesAlumnosMVCReact.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<CalificacionesAlumnosContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("CalificacionesAlumnosContext") ?? throw new InvalidOperationException("Connection string 'CalificacionesAlumnosContext' not found.")));
 
 // Add services to the container.
 
