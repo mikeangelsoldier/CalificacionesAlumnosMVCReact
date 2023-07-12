@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using CalificacionesAlumnosMVCReact.Data;
+using CalificacionesAlumnosMVCReact.Models;
+
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CalificacionesAlumnosContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("CalificacionesAlumnosContext") ?? throw new InvalidOperationException("Connection string 'CalificacionesAlumnosContext' not found.")));
@@ -9,7 +12,17 @@ builder.Services.AddDbContext<CalificacionesAlumnosContext>(options =>
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddControllers().AddNewtonsoftJson(x => 
+ x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    SeedData.Initialize(services);    
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

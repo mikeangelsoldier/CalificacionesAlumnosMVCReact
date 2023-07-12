@@ -1,33 +1,9 @@
-/*
 import { useState, useEffect } from 'react';
 import { Col, Container, Row, Card, CardHeader, CardBody, Button } from "reactstrap"
 import TablaEstudiante from "./components/TablaEstudiante";
 import ModalEstudiante from './components/ModalEstudiante';
-*/
 
-import React, { Component } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
-import { Layout } from './components/Layout';
-import './custom.css';
 
-export default class App extends Component {
-  static displayName = App.name;
-
-  render() {
-    return (
-      <Layout>
-        <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, ...rest } = route;
-            return <Route key={index} {...rest} element={element} />;
-          })}
-        </Routes>
-      </Layout>
-    );
-  }
-}
-/*
 const App = () => {
 
   const [estudiantes, setEstudiantes] = useState([]);
@@ -96,7 +72,12 @@ const App = () => {
       method: 'DELETE',
 
     });
-   
+    /**  
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify(estudiante)
+      */
 
 
     if (response.ok) {
@@ -144,5 +125,3 @@ const App = () => {
 }
 
 export default App;
-
-*/
