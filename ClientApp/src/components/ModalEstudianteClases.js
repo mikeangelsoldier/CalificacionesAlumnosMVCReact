@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 
 
 
-const ModalEstudianteClases = ({ showModalAgregarACurso, setShowModalAgregarACurso, registrarACurso, cursosDisponibles }) => {
+const ModalEstudianteClases = ({ showModalAgregarACurso, setShowModalAgregarACurso, registrarACurso, cursosDisponibles, currentSelectedValue, setCurrentSelectedValue }) => {
 
-    const [currentSelectedValue, setCurrentSelectedValue] = useState(null);
+    // const [currentSelectedValue, setCurrentSelectedValue] = useState(null);
 
 
 
@@ -48,13 +48,15 @@ const ModalEstudianteClases = ({ showModalAgregarACurso, setShowModalAgregarACur
                 <Form>
                     <FormGroup>
                         <Label>Curso</Label>
-
-                        <Input defaultValue={currentSelectedValue ? currentSelectedValue : ''} name="cursoId" type="select" onChange={(e) => actualizaDato(e)} >
+{/*  defaultValue={currentSelectedValue ? currentSelectedValue : ''} */}
+                        <Input defaultValue={cursosDisponibles.length > 0  ? cursosDisponibles[0].id : ''} name="cursoId" type="select" onChange={(e) => actualizaDato(e)} >
                             {
                                 cursosDisponibles.map(el => <option value={el.id} key={el.id}>{el.nombre}</option>)
                             }
                         </Input>
                     </FormGroup>
+                    
+                    <Label>{cursosDisponibles.length}</Label>
 
                 </Form>
             </ModalBody>

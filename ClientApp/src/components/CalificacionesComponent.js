@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Col, Container, Row, Card, CardHeader, CardBody, Button } from "reactstrap"
 import TablaEstudianteClases from "./TablaEstudianteClases";
 import ModalEstudianteClases from './ModalEstudianteClases';
@@ -19,6 +19,7 @@ const CalificacionesComponent = () => {
 
 
 
+  const [currentSelectedValue, setCurrentSelectedValue] = useState(null);
 
 
 
@@ -55,23 +56,29 @@ const CalificacionesComponent = () => {
     if (response2.ok) {
       var data2 = await response2.json();
 
-      await setAllCursos(data2);
+       setAllCursos(data2);
       
     
 
       // INICIO calcularCursosDisponibles
       if (estudianteCursos.length > 0 & data2.length > 0) {
         var arrCursosDisponibles = await data2.filter(ar => !estudianteCursos.find(rm => (ar.id == rm.cursoId)));
-         await setCursosDisponibles(arrCursosDisponibles);
+        setCursosDisponibles(arrCursosDisponibles);
         console.log("cursosDisponibles[]: ", cursosDisponibles);
       } else {
-         await setCursosDisponibles(data2);
+        setCursosDisponibles(data2);
   
         console.log("cursosDisponibles[]: ", cursosDisponibles);
       }
       // FIN calcularCursosDisponibles
       
 
+      if(cursosDisponibles.length > 0){
+        setCurrentSelectedValue(cursosDisponibles[0].id);
+      } else {
+        console.log("Entra al else");
+        setCurrentSelectedValue(null);
+      }
       
       
 
@@ -237,7 +244,8 @@ const CalificacionesComponent = () => {
 
         cursosDisponibles={cursosDisponibles}
         
-
+        currentSelectedValue={currentSelectedValue}
+        setCurrentSelectedValue={setCurrentSelectedValue}
       />
 
       <ModalCalificar showModalCalificacion={showModalCalificacion}
