@@ -1,6 +1,6 @@
 import { Table, Button } from "reactstrap"
 
-const TablaEstudianteClases = ({ data, setEstudianteCursoAEditar, showModalCalificacion, setShowModalCalificacion, eliminarEstudiante }) => {
+const TablaEstudianteClases = ({ data, setEstudianteCursoAEditar, showModalCalificacion, setShowModalCalificacion, eliminarEstudianteCurso }) => {
 
 
     const openModalCalificar = (estudianteCurso) => {
@@ -35,7 +35,7 @@ const TablaEstudianteClases = ({ data, setEstudianteCursoAEditar, showModalCalif
                                 <td>{item.calificacion ? item.calificacion : '--'}</td>
                                 <td>
                                     <Button color="secondary" size="sm" className="me-2" onClick={() => openModalCalificar(item)} >Asignar calificación</Button>
-                                    <Button color="danger" size="sm" onClick={() => eliminarEstudiante(item.id)}>Eliminar</Button>
+                                    <Button color="danger" size="sm" onClick={() => eliminarEstudianteCurso(item.id)}>Eliminar</Button>
                                 </td>
                             </tr>
                         ))

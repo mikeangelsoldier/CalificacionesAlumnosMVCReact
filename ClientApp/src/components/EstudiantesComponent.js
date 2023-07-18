@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Col, Container, Row, Card, CardHeader, CardBody, Button } from "reactstrap"
 import TablaEstudiante from "./TablaEstudiante";
 import ModalEstudiante from './ModalEstudiante';
+import PaginationComponent from './PaginationComponent';
 
 
 const EstudiantesComponent = () => {
@@ -11,6 +12,19 @@ const EstudiantesComponent = () => {
   const [estudianteAEditar, setEstudianteAEditar] = useState(null);
 
 
+  /* Inicio Logica Paginación */
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(2);
+  const totalPages = Math.ceil(estudiantes.length / itemsPerPage);
+
+  const lastItem = currentPage * itemsPerPage;
+  const firstItem = lastItem - itemsPerPage;
+  const currentItems = estudiantes.slice(firstItem, lastItem);
+
+  const handlePagina = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  /* ------------------------ */
 
 
 
@@ -107,12 +121,17 @@ const EstudiantesComponent = () => {
             <CardBody>
               <Button size="sm" color="success" onClick={() => setShowModalEstudiante(!showModalEstudiante)}>Nuevo Estudiante</Button>
               <hr></hr>
-              <TablaEstudiante data={estudiantes}
+              <TablaEstudiante data={currentItems}
                 setEstudianteAEditar={setEstudianteAEditar}
                 showModalEstudiante={showModalEstudiante}
                 setShowModalEstudiante={setShowModalEstudiante}
                 eliminarEstudiante={eliminarEstudiante}
 
+              />
+              <PaginationComponent
+                currentPage={currentPage}
+                totalPages={totalPages}
+                handlePagina={handlePagina}
               />
             </CardBody>
           </Card>

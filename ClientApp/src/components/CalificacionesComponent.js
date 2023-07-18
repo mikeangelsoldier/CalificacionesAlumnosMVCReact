@@ -4,6 +4,7 @@ import TablaEstudianteClases from "./TablaEstudianteClases";
 import ModalEstudianteClases from './ModalEstudianteClases';
 import { useParams } from 'react-router-dom';
 import ModalCalificar from './ModalCalificar';
+import PaginationComponent from './PaginationComponent';
 
 const CalificacionesComponent = () => {
   let { idEstudiante } = useParams();
@@ -20,6 +21,20 @@ const CalificacionesComponent = () => {
 
 
   const [currentSelectedValue, setCurrentSelectedValue] = useState(null); // default del selet o la seleccionada del select 
+
+  /* Inicio Logica Paginación */
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(4);
+  const totalPages = Math.ceil(estudianteCursos.length / itemsPerPage);
+
+  const lastItem = currentPage * itemsPerPage;
+  const firstItem = lastItem - itemsPerPage;
+  const currentItems = estudianteCursos.slice(firstItem, lastItem);
+
+  const handlePagina = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  /* ------------------------ */
 
 
   const mostrarEstudianteCursos = async () => {
@@ -54,9 +69,9 @@ const CalificacionesComponent = () => {
     if (response2.ok) {
       var data2 = await response2.json();
 
-       // setAllCursos(data2); // los del select
-      
-    
+      // setAllCursos(data2); // los del select
+
+
 
       // INICIO calcularCursosDisponibles
       if (estudianteCursos.length > 0 & data2.length > 0) {
@@ -65,21 +80,21 @@ const CalificacionesComponent = () => {
         console.log("cursosDisponibles[]: ", cursosDisponibles);
       } else {
         setCursosDisponibles(data2);
-  
+
         console.log("cursosDisponibles[]: ", cursosDisponibles);
       }
       // FIN calcularCursosDisponibles
-      
-/*
-      if(cursosDisponibles.length > 0){
-        setCurrentSelectedValue(cursosDisponibles[0].id);
-      } else {
-        console.log("Entra al else");
-        setCurrentSelectedValue(null);
-      }
-      */
+
+      /*
+            if(cursosDisponibles.length > 0){
+              setCurrentSelectedValue(cursosDisponibles[0].id);
+            } else {
+              console.log("Entra al else");
+              setCurrentSelectedValue(null);
+            }
+            */
       setCurrentSelectedValue(null);
-      
+
 
 
     } else {
@@ -128,7 +143,7 @@ const CalificacionesComponent = () => {
       setCurrentSelectedValue(null);
       await mostrarEstudianteCursos();
     }
-    
+
   }
 
   /*
@@ -177,7 +192,7 @@ const CalificacionesComponent = () => {
     }
   }
 
-  const eliminarEstudiante = async (id) => {
+  const eliminarEstudianteCurso = async (id) => {
 
     var respuesta = window.confirm("¿Estás seguro de eliminar el elemento?");
 
@@ -186,7 +201,7 @@ const CalificacionesComponent = () => {
       return;
     }
 
-    const response = await fetch("api/estudiantes/Eliminar/" + id, {
+    const response = await fetch("api/estudiantes/EliminarCursoAlumno/" + id, {
       method: 'DELETE',
 
     });
@@ -223,10 +238,10 @@ const CalificacionesComponent = () => {
               <h5>Lista de cursos del alumno</h5>
             </CardHeader>
             <CardBody>
-              <Button size="sm" color="success" onClick={() => abrirModalRegistrarACursos() }>Agregar a curso nuevo</Button>
+              <Button size="sm" color="success" onClick={() => abrirModalRegistrarACursos()}>Agregar a curso nuevo</Button>
               <hr></hr>
-              <TablaEstudianteClases data={estudianteCursos}
-                eliminarEstudiante={eliminarEstudiante}
+              <TablaEstudianteClases data={currentItems}
+                eliminarEstudianteCurso={eliminarEstudianteCurso}
 
 
                 showModalCalificacion={showModalCalificacion}
@@ -234,7 +249,14 @@ const CalificacionesComponent = () => {
                 setEstudianteCursoAEditar={setEstudianteCursoAEditar}
 
               />
-              
+              <PaginationComponent
+                currentPage={currentPage}
+                totalPages={totalPages}
+                handlePagina={handlePagina}
+              />
+
+
+
             </CardBody>
           </Card>
         </Col>
@@ -244,7 +266,7 @@ const CalificacionesComponent = () => {
         registrarACurso={registrarACurso}
 
         cursosDisponibles={cursosDisponibles}
-        
+
         currentSelectedValue={currentSelectedValue} //
         setCurrentSelectedValue={setCurrentSelectedValue} //
       />

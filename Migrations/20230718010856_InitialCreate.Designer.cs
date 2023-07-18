@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CalificacionesAlumnosMVCReact.Migrations
 {
     [DbContext(typeof(CalificacionesAlumnosContext))]
-    [Migration("20230712062855_InitialCreate")]
+    [Migration("20230718010856_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

@@ -191,6 +191,17 @@ namespace CalificacionesAlumnosMVCReact.Controllers
 
 
 
+        [HttpDelete]
+        [Route("EliminarCursoAlumno/{id:int}")]
+        public async Task<IActionResult> EliminarCursoAlumno(int id)
+        {
+            EstudianteCurso estudianteCurso = _context.EstudianteCurso.Find(id);
+
+            _context.EstudianteCurso.Remove(estudianteCurso);
+            await _context.SaveChangesAsync();
+
+            return StatusCode(StatusCodes.Status200OK, "ok");
+        }
 
 
 
