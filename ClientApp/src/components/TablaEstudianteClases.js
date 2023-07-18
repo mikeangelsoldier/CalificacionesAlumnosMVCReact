@@ -30,8 +30,8 @@ const TablaEstudianteClases = ({ data, setEstudianteCursoAEditar, showModalCalif
                         data.map((item) => (
                             <tr key={item.id}>
                                 <td>{item.id}</td>
-                                <td>{item.estudianteId}</td>
-                                <td>{item.cursoId}</td>
+                                <td>{item.estudiante.nombre} {item.estudiante.apellidos}</td>
+                                <td>{item.curso.nombre}</td>
                                 <td>{item.calificacion ? item.calificacion : '--'}</td>
                                 <td>
                                     <Button color="secondary" size="sm" className="me-2" onClick={() => openModalCalificar(item)} >Asignar calificación</Button>

@@ -11,7 +11,7 @@ const CalificacionesComponent = () => {
   const [estudianteCursos, setEstudianteCursos] = useState([]);
 
   const [showModalAgregarACurso, setShowModalAgregarACurso] = useState(false);
-  const [allCursos, setAllCursos] = useState([]);
+  // const [allCursos, setAllCursos] = useState([]);
   const [cursosDisponibles, setCursosDisponibles] = useState([]);
 
   const [showModalCalificacion, setShowModalCalificacion] = useState(false);
@@ -19,9 +19,7 @@ const CalificacionesComponent = () => {
 
 
 
-  const [currentSelectedValue, setCurrentSelectedValue] = useState(null);
-
-
+  const [currentSelectedValue, setCurrentSelectedValue] = useState(null); // default del selet o la seleccionada del select 
 
 
   const mostrarEstudianteCursos = async () => {
@@ -56,7 +54,7 @@ const CalificacionesComponent = () => {
     if (response2.ok) {
       var data2 = await response2.json();
 
-       setAllCursos(data2);
+       // setAllCursos(data2); // los del select
       
     
 
@@ -72,14 +70,15 @@ const CalificacionesComponent = () => {
       }
       // FIN calcularCursosDisponibles
       
-
+/*
       if(cursosDisponibles.length > 0){
         setCurrentSelectedValue(cursosDisponibles[0].id);
       } else {
         console.log("Entra al else");
         setCurrentSelectedValue(null);
       }
-      
+      */
+      setCurrentSelectedValue(null);
       
 
 
@@ -126,6 +125,7 @@ const CalificacionesComponent = () => {
 
     if (response.ok) {
       setShowModalAgregarACurso(!showModalAgregarACurso);
+      setCurrentSelectedValue(null);
       await mostrarEstudianteCursos();
     }
     
@@ -234,6 +234,7 @@ const CalificacionesComponent = () => {
                 setEstudianteCursoAEditar={setEstudianteCursoAEditar}
 
               />
+              
             </CardBody>
           </Card>
         </Col>
@@ -244,8 +245,8 @@ const CalificacionesComponent = () => {
 
         cursosDisponibles={cursosDisponibles}
         
-        currentSelectedValue={currentSelectedValue}
-        setCurrentSelectedValue={setCurrentSelectedValue}
+        currentSelectedValue={currentSelectedValue} //
+        setCurrentSelectedValue={setCurrentSelectedValue} //
       />
 
       <ModalCalificar showModalCalificacion={showModalCalificacion}

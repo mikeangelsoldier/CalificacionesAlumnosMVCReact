@@ -49,7 +49,8 @@ const ModalEstudianteClases = ({ showModalAgregarACurso, setShowModalAgregarACur
                     <FormGroup>
                         <Label>Curso</Label>
 {/*  defaultValue={currentSelectedValue ? currentSelectedValue : ''} */}
-                        <Input defaultValue={cursosDisponibles.length > 0  ? cursosDisponibles[0].id : ''} name="cursoId" type="select" onChange={(e) => actualizaDato(e)} >
+                        <Input defaultValue="" name="cursoId" type="select" onChange={(e) => actualizaDato(e)} >
+                        <option value="" key="">Selecciona un curso...</option>
                             {
                                 cursosDisponibles.map(el => <option value={el.id} key={el.id}>{el.nombre}</option>)
                             }
