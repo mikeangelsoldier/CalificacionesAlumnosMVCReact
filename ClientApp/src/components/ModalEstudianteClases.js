@@ -57,7 +57,7 @@ const ModalEstudianteClases = ({ showModalAgregarACurso, setShowModalAgregarACur
                         </Input>
                     </FormGroup>
                     
-                    <Label>{cursosDisponibles.length}</Label>
+                    {/*<Label>{cursosDisponibles.length}</Label>*/}
 
                 </Form>
             </ModalBody>

@@ -13,7 +13,7 @@ const TablaEstudianteClases = ({ data, setEstudianteCursoAEditar, showModalCalif
         <Table striped responsive>
             <thead>
                 <tr>
-                    <th>Id</th>
+                    {/*<th>Id</th>*/}
                     <th>Estudiante</th>
                     <th>Curso</th>
                     <th>Calificación</th>
@@ -29,7 +29,7 @@ const TablaEstudianteClases = ({ data, setEstudianteCursoAEditar, showModalCalif
                     ) : (
                         data.map((item) => (
                             <tr key={item.id}>
-                                <td>{item.id}</td>
+                                {/*<td>{item.id}</td>*/}
                                 <td>{item.estudiante.nombre} {item.estudiante.apellidos}</td>
                                 <td>{item.curso.nombre}</td>
                                 <td>{item.calificacion ? item.calificacion : '--'}</td>

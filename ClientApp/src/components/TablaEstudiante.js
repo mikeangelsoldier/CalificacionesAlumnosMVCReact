@@ -14,7 +14,7 @@ const TablaEstudiante = ({ data, setEstudianteAEditar, showModalEstudiante, setS
         <Table striped responsive>
             <thead>
                 <tr>
-                    <th>Id</th>
+                    {/*<th>Id</th>*/}
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Total cursos</th>
@@ -30,7 +30,7 @@ const TablaEstudiante = ({ data, setEstudianteAEditar, showModalEstudiante, setS
                     ) : (
                         data.map((item) => (
                             <tr key={item.id}>
-                                <td>{item.id}</td>
+                                {/*<td>{item.id}</td>*/}
                                 <td>{item.nombre}</td>
                                 <td>{item.apellidos}</td>
                                 <td>{item.estudiantesCursos.length > 0 ? item.estudiantesCursos.length : 0}</td>
